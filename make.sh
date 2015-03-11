@@ -16,4 +16,7 @@
 
 set -eu
 
-g++ -g -Wall -Werror -O2 rowhammer_test.cc -o rowhammer_test
+#g++ -g -Wall -Werror -O2 rowhammer_test.cc -o rowhammer_test
+
+i686-w64-mingw32-g++ -g -Wall -Werror -O2 ./rowhammer_test.cc -o rowhammer_test_x32.exe
+x86_64-w64-mingw32-g++ -g -Wall -Werror -O2 ./rowhammer_test.cc -o rowhammer_test_x64.exe
