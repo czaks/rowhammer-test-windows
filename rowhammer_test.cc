@@ -21,9 +21,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/mman.h>
+//#include <sys/mman.h>
 #include <sys/time.h>
-#include <sys/wait.h>
+//#include <sys/wait.h>
 #include <time.h>
 #include <unistd.h>
 
@@ -93,9 +93,13 @@ static void toggle(int iterations, int addr_count) {
 }
 
 void main_prog() {
-  g_mem = (char *) mmap(NULL, mem_size, PROT_READ | PROT_WRITE,
-                        MAP_ANON | MAP_PRIVATE, -1, 0);
-  assert(g_mem != MAP_FAILED);
+  //g_mem = (char *) mmap(NULL, mem_size, PROT_READ | PROT_WRITE,
+  //                      MAP_ANON | MAP_PRIVATE, -1, 0);
+
+  g_mem = (char*) malloc(mem_size);
+
+  //assert(g_mem != MAP_FAILED);
+  assert(g_mem != 0);
 
   printf("clear\n");
   memset(g_mem, 0xff, mem_size);
@@ -130,19 +134,19 @@ int main() {
   // the test in.  Otherwise, if process 1 exits or crashes, this will
   // cause a kernel panic (which can cause a reboot or just obscure
   // log output and prevent console scrollback from working).
-  int pid = fork();
-  if (pid == 0) {
+  //int pid = fork();
+  //if (pid == 0) {
     main_prog();
-    _exit(1);
-  }
+  //  _exit(1);
+  //}
 
-  int status;
-  if (waitpid(pid, &status, 0) == pid) {
-    printf("** exited with status %i (0x%x)\n", status, status);
-  }
+  //int status;
+  //if (waitpid(pid, &status, 0) == pid) {
+  //  printf("** exited with status %i (0x%x)\n", status, status);
+  //}
 
-  for (;;) {
-    sleep(999);
-  }
+  //for (;;) {
+  //  sleep(999);
+  //}
   return 0;
 }
